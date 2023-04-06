@@ -4,10 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -38,5 +35,19 @@ public class FileUtil {
         }
 
         return count.list().length;
+    }
+
+    public boolean writeToLogFile(String str)  {
+        try {
+            ClassPathResource resource = new ClassPathResource("log.txt");
+            try(FileWriter fileWriter = new FileWriter(resource.getPath(),true)){
+                fileWriter.write(str + "\n");
+            }
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+
     }
 }
